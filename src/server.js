@@ -30,6 +30,7 @@ app.use(userRoutes);
 app.use(taskRouter);
 
 app.use(notFoundHandler);
+app.use(errors());
 app.use(errorHandler);
 
 await connectMongoDB();

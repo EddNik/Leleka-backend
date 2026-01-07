@@ -2,17 +2,31 @@ import { Router } from 'express';
 
 import { celebrate } from 'celebrate';
 import { authenticate } from '../middlewares/authenticate.js';
-import { getTasksByUserId } from '../controllers/tasksController.js';
+import {
+  getTasksByUserId,
+  createTask,
+  updateTaskState,
+} from '../controllers/tasksController.js';
 import {
   createTaskSchema,
-  getTaskSchema,
   stateTaskSchema,
-} from '../validation/tasksValidation.js';
+} from '../validations/tasksValidation.js';
 
+import ctrlWrapper from '../helper/ctrlWrapper.js';
 const taskRouter = Router();
 
 taskRouter.use(authenticate);
 
-taskRouter.get('/', celebrate(getTaskSchema), getTasksByUserId);
-taskRouter.post('/', celebrate(createTaskSchema));
-taskRouter.patch('/:id', celebrate(stateTaskSchema));
+taskRouter.get('/api/tasks', ctrlWrapper(getTasksByUserId));
+taskRouter.post(
+  '/api/tasks',
+  celebrate(createTaskSchema),
+  ctrlWrapper(createTask),
+);
+taskRouter.patch(
+  '/api/tasks/:id',
+  celebrate(stateTaskSchema),
+  ctrlWrapper(updateTaskState),
+);
+
+export default taskRouter;

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { DATE_REGEX } from '../constants/time.js';
+import { DATE_REGEX } from '../constants/regex.js';
 
 const taskSchema = new Schema(
   {
@@ -17,7 +17,7 @@ const taskSchema = new Schema(
       required: true,
     },
     isDone: { type: Boolean, default: false },
-    userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { versionKey: false, timestamps: true },
 );

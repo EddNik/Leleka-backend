@@ -1,28 +1,43 @@
-import { Task } from '../models/tasks';
-
-import createHttpError from 'http-errors';
+import { Task } from '../models/tasks.js';
 
 export async function getTasksByUserId(req, res) {
-  const { userId } = req.user._id;
+  const userId = req.user._id;
 
-  const tasks = await Task.find(userId).populate('User');
+  const tasks = await Task.find({ userId }).sort({ date: 1 });
 
   res.status(200).json({
     status: 200,
     data: tasks,
   });
-  if (!tasks) {
-    throw createHttpError(404, 'Tool not found');
-  }
 }
 
 export async function createTask(req, res) {
   const dataTask = { ...req.body, userId: req.user._id };
-  const newTask = await createTask(dataTask);
+  const newTask = await Task.create(dataTask);
 
   res.status(201).json({
     status: 201,
     message: 'Task created',
     data: newTask,
+  });
+}
+
+export async function updateTaskState(req, res) {
+  const { id } = req.params;
+  const userId = req.user._id;
+
+  const task = await Task.findOneAndUpdate(
+    {
+      _id: id,
+      userId,
+    },
+    req.body,
+    { new: true },
+  );
+
+  res.status(200).json({
+    status: 200,
+    message: 'Status updated',
+    data: task,
   });
 }
