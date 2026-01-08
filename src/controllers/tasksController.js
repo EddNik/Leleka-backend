@@ -24,20 +24,17 @@ export async function createTask(req, res) {
 
 export async function updateTaskState(req, res) {
   const { id } = req.params;
-  // const userId = req.user._id;
-
+  const { isDone } = req.body;
   const task = await Task.findOneAndUpdate(
     {
       _id: id,
     },
-    req.body,
+    { isDone },
     { new: true },
   );
-
   if (!task) {
     throw createHttpError(404, 'Task not found');
   }
-
   res.status(200).json({
     status: 200,
     message: 'Status updated',
