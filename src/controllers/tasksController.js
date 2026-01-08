@@ -8,7 +8,6 @@ export async function getTasksByUserId(req, res) {
   const tasks = await Task.find({ userId }).sort({ date: 1 });
 
   res.status(200).json({
-    status: 200,
     data: tasks,
   });
 }
@@ -18,7 +17,6 @@ export async function createTask(req, res) {
   const newTask = await Task.create(dataTask);
 
   res.status(201).json({
-    status: 201,
     message: 'Task created',
     data: newTask,
   });
@@ -26,12 +24,11 @@ export async function createTask(req, res) {
 
 export async function updateTaskState(req, res) {
   const { id } = req.params;
-  const userId = req.user._id;
+  // const userId = req.user._id;
 
   const task = await Task.findOneAndUpdate(
     {
       _id: id,
-      userId,
     },
     req.body,
     { new: true },
