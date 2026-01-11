@@ -10,6 +10,7 @@ import { connectMongoDB } from './db/connectMongoDB.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import taskRouter from './routes/tasksRoutes.js';
+import diaryRouter from './routes/diaryRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -30,6 +31,7 @@ app.use(weeksRoutes);
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(taskRouter);
+app.use(diaryRouter);
 
 app.use(notFoundHandler);
 app.use(errors());
