@@ -6,13 +6,20 @@ const objectIdValidator = (value, helpers) => {
   return !isValidObjectId(value) ? helpers.message('Invalid id format') : value;
 };
 
+//Add Identifier validation
+export const getDiaryIdParamSchema = {
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().custom(objectIdValidator).required(),
+  }),
+};
+
 export const createDiarySchema = {
   [Segments.BODY]: Joi.object({
     title: Joi.string().min(1).max(64).required(),
     description: Joi.string().min(1).max(1000).required(),
     date: Joi.string().pattern(DATE_REGEX).optional(),
     emotions: Joi.array()
-      .items(Joi.string().custom(objectIdValidator)) 
+      .items(Joi.string().custom(objectIdValidator))
       .min(1)
       .max(12)
       .required(),
