@@ -7,10 +7,12 @@ import {
   getDiaryEntries,
   updateDiaryEntry,
   deleteDiaryEntry,
+  getDiaryEntryById,
 } from '../controllers/diaryController.js';
 import {
   createDiarySchema,
   updateDiarySchema,
+  getDiaryIdParamSchema,
 } from '../validations/diaryValidation.js';
 
 const diaryRouter = Router();
@@ -20,17 +22,28 @@ diaryRouter.use(authenticate);
 diaryRouter.post(
   '/api/diaries',
   celebrate(createDiarySchema),
-  ctrlWrapper(createDiaryEntry)
+  ctrlWrapper(createDiaryEntry),
 );
 
 diaryRouter.get('/api/diaries', ctrlWrapper(getDiaryEntries));
 
+diaryRouter.get(
+  '/api/diaries/:id',
+  celebrate(getDiaryIdParamSchema),
+  ctrlWrapper(getDiaryEntryById),
+);
+
 diaryRouter.patch(
   '/api/diaries/:id',
   celebrate(updateDiarySchema),
-  ctrlWrapper(updateDiaryEntry)
+  ctrlWrapper(updateDiaryEntry),
 );
 
-diaryRouter.delete('/api/diaries/:id', ctrlWrapper(deleteDiaryEntry));
+//Add celebrate
+diaryRouter.delete(
+  '/api/diaries/:id',
+  celebrate(getDiaryIdParamSchema),
+  ctrlWrapper(deleteDiaryEntry),
+);
 
 export default diaryRouter;

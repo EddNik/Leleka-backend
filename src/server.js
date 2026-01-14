@@ -2,6 +2,11 @@ import express from 'express';
 import { logger } from './middlewares/logger.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+
+//Emotion — довідкова модель,
+//потрібна для populate, сервер має знати при старті
+import './models/emotion.js';
+
 import weeksRoutes from './routes/weeksRoutes.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';

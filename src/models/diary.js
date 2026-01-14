@@ -28,9 +28,11 @@ const diarySchema = new Schema(
       default: () => new Date().toISOString().split('T')[0],
       required: true,
     },
+
+    // correct ref emotion --> Emotion, it is name model
     emotions: {
-      type: [Schema.Types.ObjectId], 
-      ref: 'emotions',
+      type: [Schema.Types.ObjectId],
+      ref: 'Emotion',
       required: true,
       validate: {
         validator: function (v) {
