@@ -29,3 +29,39 @@ The application provides information about the baby's weekly growth (size, weigh
 ```bash
 git clone [https://github.com/YehorStepanov/04-team-final-project-backend.git](https://github.com/YehorStepanov/04-team-final-project-backend.git)
 cd 04-team-final-project-backend
+npm install
+cp .env.example .env
+
+PORT=3000
+MONGO_URL=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>
+FRONTEND_URL=http://localhost:5173 # Or your deployed frontend URL
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# JWT Secrets (if applicable based on auth implementation)
+# JWT_SECRET=...
+# JWT_REFRESH_SECRET=...
+
+npm run dev
+
+npm start
+```
+
+## 📂 Project Structure
+```
+src/
+├── constants/      # Static constants (babySex, regex, etc.)
+├── controllers/    # Request handlers (auth, diary, tasks, etc.)
+├── db/             # Database connection logic
+├── helper/         # Utility functions (cloudinary, wrappers)
+├── middlewares/    # Express middlewares (auth, upload, error handling)
+├── models/         # Mongoose schemas (User, Diary, BabyState, etc.)
+├── routes/         # API Route definitions
+├── services/       # Business logic (optional, if separated from controllers)
+├── utils/          # Helpers like date formatting, pregnancy calculation
+├── validations/    # Joi validation schemas
+└── server.js       # App entry point
+```
