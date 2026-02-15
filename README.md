@@ -24,30 +24,28 @@ The application provides information about the baby's weekly growth (size, weigh
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
+### 1. Installation
+
+Navigate to the backend directory and install dependencies:
 
 ```bash
-git clone [https://github.com/YehorStepanov/04-team-final-project-backend.git](https://github.com/YehorStepanov/04-team-final-project-backend.git)
-cd 04-team-final-project-backend
+cd leleka-backend
 npm install
-cp .env.example .env
 
 PORT=3000
-MONGO_URL=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>
-FRONTEND_URL=http://localhost:5173 # Or your deployed frontend URL
+MONGO_URL=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<dbname>
+FRONTEND_URL=http://localhost:3000
 
-# Cloudinary Configuration
+# Authentication
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=2h
+JWT_REFRESH_SECRET=your_refresh_secret
+JWT_REFRESH_EXPIRES_IN=7d
+
+# Cloudinary (Image Uploads)
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-
-# JWT Secrets (if applicable based on auth implementation)
-# JWT_SECRET=...
-# JWT_REFRESH_SECRET=...
-
-npm run dev
-
-npm start
 ```
 
 ## 📂 Project Structure
@@ -65,3 +63,17 @@ src/
 ├── validations/    # Joi validation schemas
 └── server.js       # App entry point
 ```
+
+## 📡 Key API Endpoints
+
+All routes are prefixed with `/api`.
+
+* Auth: `/auth/register`, `/auth/login`, `/auth/logout`, `/auth/refresh`
+
+* Users: `/users/current`, `/users/update`, `/users/avatar`
+
+* Weeks: `/weeks` (all info), `/weeks/current` (based on due date)
+
+* Tasks: `/tasks` (CRUD operations for to-do list)
+
+* Diary: `/diaries` (CRUD for personal notes with images)
